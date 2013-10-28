@@ -91,7 +91,8 @@ public class NameChecker {
 
 			// check for unnecessary speaker entry
 			Collection<String> defaultSpeakers = allowedPrefixesToDefaultSpeakers.get(matchingPrefix);
-			if (defaultSpeakers != null && !defaultSpeakers.isEmpty() && defaultSpeakers.contains(speaker)) {
+			if (speaker != null && defaultSpeakers != null && !defaultSpeakers.isEmpty()
+				&& defaultSpeakers.contains(speaker)) {
 				LOG.error("speaker {} is default for prefix {}, don't specify it explicitly", speaker, matchingPrefix);
 				return false;
 			}

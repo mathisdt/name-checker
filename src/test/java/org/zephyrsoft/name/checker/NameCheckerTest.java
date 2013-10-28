@@ -34,6 +34,7 @@ public class NameCheckerTest {
 
 		assertFalse(NameChecker.checkFileName("2013-09-01-Bibelstunde-Joerg-48kbps.mp3"));
 		assertTrue(NameChecker.checkFileName("2013-09-01-Bibelstunde-Stephan-48kbps.mp3"));
+		assertTrue(NameChecker.checkFileName("2013-09-01-Jugendfreizeit-48kbps.mp3"));
 	}
 
 }
