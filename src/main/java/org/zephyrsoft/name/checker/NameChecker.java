@@ -1,7 +1,11 @@
 package org.zephyrsoft.name.checker;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Collection;
+import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Splitter;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
@@ -45,7 +50,9 @@ public class NameChecker {
 			return false;
 		}
 
-		return checkFileName(file.getName());
+		boolean checkOK = checkFileName(file.getName());
+		LOG.info(checkOK ? "=> VALID" : "=> INVALID");
+		return checkOK;
 	}
 
 	@VisibleForTesting
@@ -73,20 +80,19 @@ public class NameChecker {
 			}
 
 			Multimap<String, String> allowedPrefixesToDefaultSpeakers = loadAllowedPrefixesWithDefaultSpeakers();
+			String matchingPrefix = getMatchingPrefix(name, allowedPrefixesToDefaultSpeakers.keySet());
 
-			// check that name is in allowed list
-			// TODO list contains only prefixes, additional text allowed afterwards
-			if (allowedPrefixesToDefaultSpeakers.keySet().contains(name)) {
-				LOG.debug("name {} is in list of allowed names", name);
+			if (matchingPrefix != null) {
+				LOG.debug("name {} matches allowed prefix {}", name, matchingPrefix);
 			} else {
-				LOG.error("name {} is NOT in list of allowed names", name);
+				LOG.error("name {} does NOT match an allowed prefix", name);
 				return false;
 			}
 
 			// check for unnecessary speaker entry
-			Collection<String> defaultSpeakers = allowedPrefixesToDefaultSpeakers.get(name);
+			Collection<String> defaultSpeakers = allowedPrefixesToDefaultSpeakers.get(matchingPrefix);
 			if (defaultSpeakers != null && !defaultSpeakers.isEmpty() && defaultSpeakers.contains(speaker)) {
-				LOG.error("speaker {} is default for {}, don't specify it explicitly", speaker, name);
+				LOG.error("speaker {} is default for prefix {}, don't specify it explicitly", speaker, matchingPrefix);
 				return false;
 			}
 
@@ -108,16 +114,62 @@ public class NameChecker {
 		}
 	}
 
+	private static String getMatchingPrefix(String textToCheck, Collection<String> allowedPrefixes) {
+		for (String allowedPrefix : allowedPrefixes) {
+			if (textToCheck.startsWith(allowedPrefix)) {
+				return allowedPrefix;
+			}
+		}
+		return null;
+	}
+
 	private static Multimap<String, String> loadAllowedPrefixesWithDefaultSpeakers() {
 		Multimap<String, String> map = HashMultimap.create();
 
-		File csv = new File(System.getProperty("base.dir") + File.separator + "data" + File.separator + "prefixes.csv");
+		File csv = new File(System.getProperty("user.home") + File.separator + ".name-checker" + File.separator
+			+ "prefixes.csv");
+		if (csv.exists() && csv.canRead()) {
+			LOG.info("using user-defined prefixes");
+		} else {
+			LOG.info("using system prefixes (from data dir)");
+			csv = new File(System.getProperty("base.dir") + File.separator + "data" + File.separator + "prefixes.csv");
+		}
 
 		if (!csv.exists()) {
 			LOG.error("prefixes file {} was not found", csv.getAbsolutePath());
+			return map;
 		}
 
-		// TODO
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(csv);
+		} catch (FileNotFoundException e) {
+			LOG.error("prefixes file {} was not found", csv.getAbsolutePath());
+			return map;
+		}
+		Scanner scanner = new Scanner(fis);
+
+		Splitter semicolonSplitter = Splitter.on(';').limit(2).trimResults();
+		Splitter commaSplitter = Splitter.on(',').trimResults();
+
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			if (line == null || line.trim().isEmpty() || line.trim().startsWith("#")) {
+				// filter empty lines and comments
+				continue;
+			}
+
+			List<String> keyAndValues = semicolonSplitter.splitToList(line);
+			if (keyAndValues.size() == 2) {
+				List<String> values = commaSplitter.splitToList(keyAndValues.get(1));
+				map.putAll(keyAndValues.get(0), values);
+			} else {
+				map.put(keyAndValues.get(0), null);
+			}
+
+		}
+
+		scanner.close();
 
 		return map;
 	}

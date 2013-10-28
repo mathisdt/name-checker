@@ -1,5 +1,11 @@
-# name and default preachers separated with semicolon ;
+#
+# This file is only used if ~/.name-checker/prefixes.csv is not present.
+# ==> You should copy this file there to let your modifications survive updates of name-checker!
+#
+# Syntax Description:
+# name prefix and default preachers separated with semicolon ;
 # multiple default preachers separated with comma ,
+
 Abendgottesdienst; Joerg, Joerg_Macheil
 Abendveranstaltung
 Beziehungsseminar
