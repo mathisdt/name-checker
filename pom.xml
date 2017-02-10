@@ -32,7 +32,7 @@
 		<!-- dependency versions -->
 		<version.slf4j>1.7.22</version.slf4j>
 		<version.log4j>2.8</version.log4j>
-		<version.guava>19.0</version.guava>
+		<version.guava>21.0</version.guava>
 		<version.junit>4.12</version.junit>
 	</properties>
 
