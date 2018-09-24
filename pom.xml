@@ -19,9 +19,9 @@
 	</licenses>
 
 	<scm>
-		<url>https://dev.zephyrsoft.org/svn/name-checker/trunk/</url>
-		<connection>scm:svn:https://dev.zephyrsoft.org/svn/name-checker/trunk/</connection>
-		<developerConnection>scm:svn:https://dev.zephyrsoft.org/svn/name-checker/trunk/</developerConnection>
+		<url>https://github.com/mathisdt/name-checker</url>
+		<connection>scm:git:ssh:git@github.com:mathisdt/name-checker.git</connection>
+		<developerConnection>scm:git:ssh:git@github.com:mathisdt/name-checker.git</developerConnection>
 	</scm>
 
 	<properties>
