@@ -3,7 +3,7 @@ sudo: false
 language: java
 
 jdk:
-- oraclejdk8
+- openjdk11
 
 branches:
   only:
@@ -13,7 +13,7 @@ branches:
 
 cache:
   directories:
-  - $HOME/.m2
+  - "$HOME/.m2"
 
 install: true
 
