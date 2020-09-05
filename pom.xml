@@ -31,7 +31,7 @@
 
 		<!-- dependency versions -->
 		<version.slf4j>1.7.30</version.slf4j>
-		<version.log4j>2.10.0</version.log4j>
+		<version.logback>1.2.3</version.logback>
 		<version.guava>29.0-jre</version.guava>
 		<version.junit>4.13</version.junit>
 	</properties>
@@ -57,14 +57,9 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-slf4j-impl</artifactId>
-			<version>${version.log4j}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${version.log4j}</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${version.logback}</version>
 		</dependency>
 
 		<!-- test -->
@@ -134,10 +129,9 @@
                                 <bannedDependencies>
                                   <excludes>
                                     <exclude>log4j:log4j</exclude>
+                                    <exclude>org.apache.logging.log4j:log4j-core</exclude>
                                     <exclude>org.slf4j:slf4j-log4j12</exclude>
                                     <exclude>org.slf4j:slf4j-jdk14</exclude>
-                                    <exclude>ch.qos.logback:logback-core</exclude>
-                                    <exclude>ch.qos.logback:logback-classic</exclude>
                                     <exclude>ch.qos.logback:logback-access</exclude>
                                     <exclude>commons-logging:commons-logging</exclude>
                                   </excludes>
