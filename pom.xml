@@ -29,7 +29,7 @@
 		<main.class>org.zephyrsoft.name.checker.Start</main.class>
 
 		<!-- dependency versions -->
-		<version.slf4j>2.0.5</version.slf4j>
+		<version.slf4j>2.0.6</version.slf4j>
 		<version.logback>1.4.5</version.logback>
 		<version.guava>31.1-jre</version.guava>
 		<version.junit>4.13.2</version.junit>
