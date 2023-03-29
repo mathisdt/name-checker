@@ -9,6 +9,5 @@ jobs:
   release:
     uses: mathisdt/workflows/.github/workflows/maven.yaml@master
     with:
-      script-after-maven-build: ./build-jre-distributions.sh
       pattern-to-release: name-checker-*.zip
     secrets: inherit
