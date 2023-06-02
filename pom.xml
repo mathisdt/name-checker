@@ -208,13 +208,16 @@
 			<plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>3.2.1</version>
+				<version>3.3.0</version>
 				<executions>
 				    <execution>
-				        <id>attach-sources</id>
+						<id>generate-sources</id>
 				        <goals>
 				            <goal>jar</goal>
 				        </goals>
+				        <configuration>
+							<attach>false</attach>
+						</configuration>
 				    </execution>
 				</executions>
 				<configuration>
