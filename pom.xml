@@ -29,7 +29,7 @@
 		<main.class>org.zephyrsoft.name.checker.Start</main.class>
 
 		<!-- dependency versions -->
-		<version.slf4j>2.0.10</version.slf4j>
+		<version.slf4j>2.0.11</version.slf4j>
 		<version.logback>1.4.14</version.logback>
 		<version.guava>33.0.0-jre</version.guava>
 		<version.junit>4.13.2</version.junit>
@@ -145,7 +145,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<version>2.3.0</version>
+				<version>2.4.0</version>
 				<configuration>
 					<useMissingFile>true</useMissingFile>
 					<useRepositoryMissingFiles>false</useRepositoryMissingFiles>
