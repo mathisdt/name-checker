@@ -18,9 +18,7 @@
 	</licenses>
 
 	<scm>
-		<url>https://github.com/mathisdt/name-checker</url>
-		<connection>scm:git:ssh:git@github.com:mathisdt/name-checker.git</connection>
-		<developerConnection>scm:git:ssh:git@github.com:mathisdt/name-checker.git</developerConnection>
+		<url>https://codeberg.org/mathisdt/name-checker</url>
 	</scm>
 
 	<properties>
